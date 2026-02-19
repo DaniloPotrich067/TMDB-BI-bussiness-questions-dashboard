@@ -15,15 +15,15 @@ st.title("ROI – Budget vs revenue")
 
 st.markdown(
     """
-**Perguntas que esta página responde**
-- Quais filmes dão maior retorno (ROI) e quais dão maior lucro (profit)?
-- Qual é a cobertura real de dados financeiros no meu recorte?
-- Qualidade se relaciona com retorno?
+**Questions this page answers**
+- Which movies give the highest return (ROI) and which give the highest profit?
+- What is the real coverage of financial data in my slice?
+- Does quality relate to return?
 
-**Análises**
-- ROI e profit calculados a partir de budget/revenue.
-- Filtros mínimos (budget/revenue) para evitar ranking distorcido.
-- Gráfico budget vs revenue em escala log.
+**Analyses**
+- ROI and profit calculated from budget/revenue.
+- Minimum filters (budget/revenue) to avoid distorted ranking.
+- Budget vs revenue chart on log scale.
 """
 )
 
@@ -32,7 +32,7 @@ df = load_financial_curated()
 need = {"budget", "revenue", "profit", "roi"}
 missing = [c for c in need if c not in df.columns]
 if missing:
-    st.error(f"Financial curated não está pronto. Rode: python refresh.py | Missing columns: {missing}")
+    st.error(f"Financial curated is not ready. Run: python refresh.py | Missing columns: {missing}")
     st.stop()
 
 (year_range, mv, genre_q, _) = sidebar_common_filters(df, show_genre=True, show_title=False)
@@ -44,10 +44,9 @@ with st.sidebar:
 
 df_f = apply_common_filters(df, year_range, mv, genre_q, "")
 
-# Coverage calculado por função única (mesma regra da Home quando usar o mesmo piso)
 coverage, n_ok, n_total = roi_ready_coverage(df_f, min_budget=min_budget, min_revenue=min_revenue)
 
-# Base ROI-ready para análise
+
 df_ok = df_f[
     (df_f["budget"].fillna(0) >= min_budget) &
     (df_f["revenue"].fillna(0) >= min_revenue)
@@ -66,7 +65,7 @@ with c3:
         "Coverage (ROI-ready)",
         pct2(coverage),
         status_by_threshold(coverage, bad_lt=0.30, warn_lt=0.60),
-        help=f"{n_ok}/{n_total} títulos com ROI calculável acima do piso.",
+        help=f"{n_ok}/{n_total} titles with calculable ROI above the threshold.",
     )
 with c4:
     kpi("Avg ROI", pct2(avg_roi), status_by_threshold(avg_roi, bad_lt=0.10, warn_lt=0.20))

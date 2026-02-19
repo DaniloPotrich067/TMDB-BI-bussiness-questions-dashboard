@@ -1,0 +1,25 @@
+# Arquivos de ambiente e configurações sensíveis
+.env
+
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Dados temporários e cache
+DATA/CACHE/
+
+# Logs
+*.log
+
+# Configurações do editor
+.vscode/
+
+# Arquivos temporários
+*.tmp
+*.swp
+*.bak
+
+# Dados originais (se não quiser versionar)
+# DATA/ORIGINAL/

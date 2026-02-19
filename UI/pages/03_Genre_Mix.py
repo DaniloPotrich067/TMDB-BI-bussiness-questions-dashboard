@@ -11,14 +11,14 @@ st.title("Genre mix – Quality vs volume")
 
 st.markdown(
     """
-**Perguntas que esta página responde**
-- Quais gêneros performam melhor em qualidade no meu recorte?
-- Tenho volume suficiente por gênero para confiar?
-- Quais gêneros equilibram qualidade e escala?
+**Questions this page answers**
+- Which genres perform best in quality in my slice?
+- Do I have enough volume per genre to trust?
+- Which genres balance quality and scale?
 
-**Análises**
-- Explode de gêneros + agregação por gênero.
-- Scatter “volume vs qualidade” com cor por faixa de qualidade.
+**Analyses**
+- Genre explode + aggregation by genre.
+- Scatter 'volume vs quality' with color by quality range.
 """
 )
 
@@ -26,7 +26,7 @@ df = load_curated()
 
 if "genres_names" not in df.columns:
     if "genres_str" not in df.columns:
-        st.error("Missing genre columns (genres_str/genres_names). Rode o ETL com transform_enrich.")
+        st.error("Missing genre columns (genres_str/genres_names). Run ETL with transform_enrich.")
         st.stop()
     df["genres_names"] = df["genres_str"].fillna("").apply(lambda s: [x.strip() for x in s.split(",") if x.strip()])
 

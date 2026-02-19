@@ -11,14 +11,14 @@ st.title("Demand – What attracts attention?")
 
 st.markdown(
     """
-**Perguntas que esta página responde**
-- Quais filmes estão puxando atenção (demanda) no meu recorte?
-- Popularidade está alinhada com qualidade?
-- Onde estão os outliers?
+**Questions this page answers**
+- Which movies are attracting attention (demand) in my slice?
+- Is popularity aligned with quality?
+- Where are the outliers?
 
-**Análises**
-- Ranking por `popularity`.
-- Scatter log(popularity) vs `weighted_rating` com tamanho por `vote_count`.
+**Analyses**
+- Ranking by `popularity`.
+- Scatter log(popularity) vs `weighted_rating` with size by `vote_count`.
 """
 )
 

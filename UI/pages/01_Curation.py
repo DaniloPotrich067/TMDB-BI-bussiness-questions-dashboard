@@ -13,14 +13,14 @@ st.title("Curation – What should we highlight?")
 
 st.markdown(
     """
-**Perguntas que esta página responde**
-- Quais títulos devo destacar com confiança (curadoria editorial)?
-- Como a qualidade se distribui no meu recorte?
-- Meu recorte tem volume suficiente para eu confiar?
+**Questions this page answers**
+- Which titles should I highlight with confidence (editorial curation)?
+- How is quality distributed in my slice?
+- Does my slice have enough volume for me to trust?
 
-**Análises**
-- Ranking por `weighted_rating` com piso de votos.
-- Distribuição (histograma) para evitar “média cega”.
+**Analyses**
+- Ranking by `weighted_rating` with vote floor.
+- Distribution (histogram) to avoid 'blind average'.
 """
 )
 

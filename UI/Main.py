@@ -20,18 +20,17 @@ df = load_curated()
 df_fin = load_financial_curated()
 
 st.title("TMDB – Business Questions Dashboard")
-st.markdown("Home de overview (estilo BI): resume o recorte inteiro e te dá próximos passos antes das páginas de análise.")
+st.markdown("General overview of the dataset, data quality signals and highlights to guide you in the other pages.")
 
-# Defaults (iguais ao ROI)
 MIN_BUDGET_DEFAULT = 1_000_000
 MIN_REVENUE_DEFAULT = 1_000_000
 
 with st.sidebar:
     st.header("Quick actions")
-    st.write("- **Curation**: o que destacar com confiança")
-    st.write("- **Demand**: o que está puxando atenção")
-    st.write("- **Genre mix**: trade-off qualidade x volume")
-    st.write("- **ROI**: eficiência e retorno financeiro")
+    st.write("- **Curation**: what to highlight with confidence")
+    st.write("- **Demand**: what's attracting attention")
+    st.write("- **Genre mix**: quality vs volume trade-off")
+    st.write("- **ROI**: efficiency and financial return")
     st.divider()
     st.code("python refresh.py\nstreamlit run UI/app.py", language="bash")
     if st.button("Clear cache (dev)"):
@@ -58,7 +57,6 @@ with c5:
 st.subheader("Data quality signals")
 dq1, dq2, dq3 = st.columns(3)
 
-# Métrica CONSISTENTE: mesma regra do ROI (ROI-ready)
 cov_roi_ready, n_ok, n_total = roi_ready_coverage(
     df_fin,
     min_budget=MIN_BUDGET_DEFAULT,
@@ -70,7 +68,7 @@ with dq1:
         f"ROI-ready coverage (>= ${MIN_BUDGET_DEFAULT:,.0f} / >= ${MIN_REVENUE_DEFAULT:,.0f})",
         pct2(cov_roi_ready),
         status_by_threshold(cov_roi_ready, bad_lt=0.30, warn_lt=0.60),
-        help=f"{n_ok}/{n_total} títulos com ROI calculável acima do piso.",
+        help=f"{n_ok}/{n_total} titles with calculable ROI above the threshold.",
     )
 
 with dq2:
@@ -79,7 +77,7 @@ with dq2:
         "Missing weighted_rating",
         pct2(null_wr),
         status_by_threshold(1 - null_wr, bad_lt=0.90, warn_lt=0.97),
-        help="Se faltar nota, ranking e histograma perdem força.",
+        help="If rating is missing, ranking and histogram lose strength.",
     )
 
 with dq3:
@@ -88,7 +86,7 @@ with dq3:
         "Missing popularity",
         pct2(null_pop),
         status_by_threshold(1 - null_pop, bad_lt=0.90, warn_lt=0.97),
-        help="Se faltar popularity, a página Demand perde sentido.",
+        help="If popularity is missing, the Demand page loses meaning.",
     )
 
 st.subheader("For you (highlights)")
@@ -119,7 +117,6 @@ with colB:
 
 with colC:
     st.markdown("#### ROI (top)")
-    # Usa o mesmo piso default da home para não “mentir” na highlight
     fin_for_top = df_fin.copy()
     if all(c in fin_for_top.columns for c in ["roi", "profit", "budget", "revenue"]):
         fin_for_top = fin_for_top[
@@ -137,7 +134,7 @@ with colC:
         roi_top["profit"] = roi_top["profit"].apply(money_short)
         st.dataframe(roi_top, hide_index=True, use_container_width=True)
     else:
-        st.info("ROI highlights indisponíveis para este piso (tente reduzir o mínimo na página ROI).")
+        st.info("ROI highlights unavailable for this threshold (try reducing the minimum on the ROI page).")
 
 st.subheader("Overview charts")
 ch1, ch2 = st.columns(2)

@@ -77,7 +77,6 @@ TMDB - Dataset/
 ```
 
 ## 📸 Screenshots
-*(Adicione screenshots da interface aqui para visualização)*
 
 ## 🤝 Contribuição
 Contribuições são bem-vindas! Siga estes passos:
